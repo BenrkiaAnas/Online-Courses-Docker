@@ -1,0 +1,80 @@
+services:
+  auth-service:
+    build: ./auth-service
+    container_name: auth-service
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongo-auth
+
+  mongo-auth:
+    image: mongo
+    container_name: mongo-auth
+    volumes:
+      - mongo-auth-data:/data/db
+
+  enrollment-service:
+    build: ./enrollment-service
+    container_name: enrollment-service
+    ports:
+      - "5002:5002"
+    depends_on:
+      - mongo-enrollment
+      - rabbitmq
+
+  mongo-enrollment:
+    image: mongo
+    container_name: mongo-enrollment
+    volumes:
+      - mongo-enrollment-data:/data/db
+
+  course-service:
+    build: ./course-service
+    container_name: course-service
+    ports:
+      - "8000:80"
+    depends_on:
+      - mysql-course
+
+  mysql-course:
+    image: mysql:5.7
+    container_name: mysql-course
+    restart: always
+    environment:
+      MYSQL_DATABASE: course_service
+      MYSQL_ALLOW_EMPTY_PASSWORD: yes
+    volumes:
+      - mysql-course-data:/var/lib/mysql
+
+  notification-service:
+    build: ./notification-service
+    container_name: notification-service
+    ports:
+      - "5003:5003"
+    depends_on:
+      - rabbitmq
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth-service
+      - enrollment-service
+      - course-service
+
+volumes:
+  mongo-auth-data:
+  mongo-enrollment-data:
+  mysql-course-data:

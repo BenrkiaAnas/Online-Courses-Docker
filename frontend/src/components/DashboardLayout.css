@@ -1,0 +1,126 @@
+/* Layout global */
+.dashboard-layout {
+    display: flex;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 220px;
+    background-color: #f1f5ff;
+    color: #1a237e;
+    padding: 1.5rem;
+    border-right: 1px solid #d6e0f5;
+}
+
+.sidebar-title {
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-item {
+    display: block;
+    color: #1a237e;
+    text-decoration: none;
+    margin: 1rem 0;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.nav-item:hover,
+.nav-item.active {
+    background-color: #d6e0f5;
+}
+
+/* Contenu principal */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #f9fafa;
+    overflow: hidden;
+}
+
+/* Barre supérieure */
+.topbar {
+    background: white;
+    padding: 1rem 2rem;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    position: relative;
+}
+
+/* Dropdown */
+.dropdown {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    user-select: none;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: bold;
+    color: #0d47a1;
+}
+
+.arrow {
+    font-size: 0.7rem;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 130%;
+    right: 0;
+    background-color: white;
+    min-width: 140px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-radius: 6px;
+    z-index: 1000;
+    padding: 0.5rem;
+    animation: fadeIn 0.2s ease-in-out;
+}
+
+.dropdown-menu button {
+    width: 100%;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    cursor: pointer;
+}
+
+.dropdown-menu button:hover {
+    background-color: #d32f2f;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Zone de contenu */
+.content {
+    padding: 2rem;
+    overflow-y: auto;
+}
